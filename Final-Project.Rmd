@@ -14,27 +14,28 @@ knitr::opts_chunk$set(echo = TRUE)
 # The names of the students in the group.
 
 1. Jayden Merrick
-2.
-3.
-4.
-5.
+2.Samantha Laderman
+3.Dongwoon Han
+4.Gavin Ryan
+5.Hyewon Aha
 
 
 # A brief description of how the group will communicate and work together.
 # When during the week can the group meet? Consider needs of all group members.
 # What platforms will the group use to communicate and share documents?
 
-Group Planned Meeting (Time/Place): 
-Platform for Communcation: 
+Group Planned Meeting (Time/Place): 3:00pm At Morgridge Tuesdays. Meet by Cafe.
+Platform for Communication: iMessage for direct contact, Google docs for Code sharing, and Github for main Final Project file.
 
 
 # The question or questions of interest that motivate the planned study.
 
+Question: Does the higher the fare correlate with a higher survivability of the individuals in the dataset.
 
-Links to where one can find and download the dataset(s) you are going to use. Please confirm that you can read the data into RStudio. You can do this by displaying the first 5 rows of your dataset (with only the relevant columns) in the knitted .html file or a glimpse of the dataset.
 
 ```{r}
-data <- 
+# For the group: My data was put into a separate data folder
+data <- read.csv("../data/titanic.csv")
 
 head(data)
 ```
@@ -42,22 +43,21 @@ head(data)
 
 # A description of the data:
 
-Who collected the data: 
+Who collected the data: Collected from Shanghai Jiao Tong University for Xiaming Chen's PhD studies.
 
-How were the data collected:
+How were the data collected: From blogs, answers, and user responses.
 
-What are the key variables, what do they measure, and how are they related to your key questions: 
+What are the key variables, what do they measure, and how are they related to your key questions: Fare and Survivability are the focus of our question. We should be able to reference the fare price to if the individual survived or not.
 
-If the data is a sample from some larger population, what is that larger population:
+If the data is a sample from some larger population, what is that larger population: The data is a subet of the whole populaion. The actaul population would include the entire ~2,200 people that were on the titanic. Our data has around 800 individuals.
  
 
 # Include a description of a graph which will show how the data informs the primary question of interest.
 
-Describe what variables you will include and what type of graph you will create:
+Describe what variables you will include and what type of graph you will create: 
 
  
 
 # Finally, please do your best to identify which type of inference method you are going to use. In particular, please identify one of the inference methods listed below, and which variable(s) are your cause and effect (if applicable)
-Simple linear regression (Using a continuous variable X to predict a continuous variable Y)
-Inference on a single population proportion (is it equal to some value of interest?) or difference of two population proportions
-Inference on a single population mean (is it equal to some value of interest?) or difference of two population means 
+
+Method: Inference on a difference of two population proportions, as we deal with fare and survivability (dead/alive)
