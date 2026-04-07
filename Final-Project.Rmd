@@ -1,0 +1,63 @@
+---
+title: "Project Proposal"
+output: html_document
+date: "2026-04-07"
+Authors: "Jayden Merrick, "
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# -- Project Proposal for 4/8/2026 -- #
+
+# The names of the students in the group.
+
+1. Jayden Merrick
+2.
+3.
+4.
+5.
+
+
+# A brief description of how the group will communicate and work together.
+# When during the week can the group meet? Consider needs of all group members.
+# What platforms will the group use to communicate and share documents?
+
+Group Planned Meeting (Time/Place): 
+Platform for Communcation: 
+
+
+# The question or questions of interest that motivate the planned study.
+
+
+Links to where one can find and download the dataset(s) you are going to use. Please confirm that you can read the data into RStudio. You can do this by displaying the first 5 rows of your dataset (with only the relevant columns) in the knitted .html file or a glimpse of the dataset.
+
+```{r}
+data <- 
+
+head(data)
+```
+
+
+# A description of the data:
+
+Who collected the data: 
+
+How were the data collected:
+
+What are the key variables, what do they measure, and how are they related to your key questions: 
+
+If the data is a sample from some larger population, what is that larger population:
+ 
+
+# Include a description of a graph which will show how the data informs the primary question of interest.
+
+Describe what variables you will include and what type of graph you will create:
+
+ 
+
+# Finally, please do your best to identify which type of inference method you are going to use. In particular, please identify one of the inference methods listed below, and which variable(s) are your cause and effect (if applicable)
+Simple linear regression (Using a continuous variable X to predict a continuous variable Y)
+Inference on a single population proportion (is it equal to some value of interest?) or difference of two population proportions
+Inference on a single population mean (is it equal to some value of interest?) or difference of two population means 
