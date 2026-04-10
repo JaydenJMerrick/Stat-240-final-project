@@ -11,53 +11,74 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # -- Project Proposal for 4/8/2026 -- #
 
-# The names of the students in the group.
+#### The names of the students in the group.
 
-1. Jayden Merrick
+1.Jayden Merrick
 2.Samantha Laderman
 3.Dongwoon Han
 4.Gavin Ryan
 5.Hyewon Aha
 
 
-# A brief description of how the group will communicate and work together.
-# When during the week can the group meet? Consider needs of all group members.
-# What platforms will the group use to communicate and share documents?
+#### A brief description of how the group will communicate and work together.
 
 Group Planned Meeting (Time/Place): 3:00pm At Morgridge Tuesdays. Meet by Cafe.
 Platform for Communication: iMessage for direct contact, Google docs for Code sharing, and Github for main Final Project file.
 
 
-# The question or questions of interest that motivate the planned study.
+#### The question or questions of interest that motivate the planned study.
 
-Question: Does the higher the fare correlate with a higher survivability of the individuals in the dataset.
+Question: Did an individuals paid fare rate impact their chance of survival on the Titanic? 
+
+We can use the dataset to columns 'Fare' and 'Survived' Columns to figure this out!
 
 
 ```{r}
 # For the group: My data was put into a separate data folder
 data <- read.csv("../data/titanic.csv")
 
-head(data)
+head(data) # Reads good!
 ```
 
 
-# A description of the data:
+```{r}
+library(dplyr)
+fare_survivability <- data %>% select("Survived", "Fare") # This keeps only the variables we need
 
-Who collected the data: Collected from Shanghai Jiao Tong University for Xiaming Chen's PhD studies.
+# We will use these columns in the data
+head(fare_survivability)
+```
 
-How were the data collected: From blogs, answers, and user responses.
+### A description of the data:
 
-What are the key variables, what do they measure, and how are they related to your key questions: Fare and Survivability are the focus of our question. We should be able to reference the fare price to if the individual survived or not.
+#####  Who collected the data: 
+Collected from Shanghai Jiao Tong University for Xiaming Chen's PhD studies. 
+Here is a direct link: https://github.com/awesomedata/awesome-public-datasets/blob/master/Datasets/titanic.csv.zip
 
-If the data is a sample from some larger population, what is that larger population: The data is a subet of the whole populaion. The actaul population would include the entire ~2,200 people that were on the titanic. Our data has around 800 individuals.
+##### How were the data collected: 
+From blogs, answers, and user responses, and titied by OMNILab at the University (according to the GitHub Page).
+
+##### What are the key variables, what do they measure, and how are they related to your key questions: 
+The variables fare and survivability are the focus of our question, as fare will be used as a indicator of the individuals economic level.
+The fare variable is the amount paid for that individuals ticket, in US currency.
+The variable survivability describes if the individual lived or died, and is a binary digit: 0 = dead, 1 = lived.
+
+
+If the data is a sample from some larger population, what is that larger population: The data is a subset of the whole population. The actual population would include the entire ~2,200 people that were on the titanic. Our data has around 800 individuals.
  
 
-# Include a description of a graph which will show how the data informs the primary question of interest.
+### Include a description of a graph which will show how the data informs the primary question of interest.
 
-Describe what variables you will include and what type of graph you will create: 
+#### Describe what variables you will include and what type of graph you will create: 
 
+ Since we have a continuous & discrete data type, we should produce a box plot graph.
+ A box plot will be able to show the mean, variance, and overall relation of between "died" or "lived" with the fair prices.
+ The y-axis should be the fare price data and the x-axis should include 2 elements: "lived" or "died".
  
+ We can see if there is a correlation between the fare price and survivability based on how differing the two box's are for the lived and died categories.
 
-# Finally, please do your best to identify which type of inference method you are going to use. In particular, please identify one of the inference methods listed below, and which variable(s) are your cause and effect (if applicable)
+#### Finally, please do your best to identify which type of inference method you are going to use. In particular, please identify one of the inference methods listed below, and which variable(s) are your cause and effect (if applicable)
 
-Method: Inference on a difference of two population proportions, as we deal with fare and survivability (dead/alive)
+Method: Inference on a difference of two population proportions, as we deal with fare and survivability (dead/alive).
+
+If our test show something significant, we could say that a 'cause' of some of the deaths upon the titanic were due to the economic class suggested by the fare price they paid.
