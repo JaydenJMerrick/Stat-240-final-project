@@ -1,0 +1,49 @@
+---
+title: "Final_Project_Paper"
+output: html_document
+date: "2026-04-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data Read & Clean
+```{r}
+# For the group: My data was put into a separate data folder
+data <- read.csv("../data/titanic.csv")
+
+head(data) # Reads good!
+```
+
+```{r}
+library(dplyr)
+fare_survivability <- data %>% select("Survived", "Fare") # This keeps only the variables we need
+
+# We will use these columns in the data
+head(fare_survivability)
+
+# Data Clean (remove NA's)
+library(tidyr) # For drop_na
+
+fare_survivability_cleaned <- fare_survivability %>% drop_na(Survived, Fare)
+fare_survivability_cleaned
+```
+
+## BoxPlot Graph
+
+```{r}
+library(ggplot2)
+
+ggplot(fare_survivability_cleaned, aes(x = factor(Survived), y = Fare), fill = factor(Survived)) +
+  geom_boxplot() +
+  coord_cartesian(ylim = c(0, 300)) + #needed to zoom in due to outlier
+  scale_x_discrete(labels = c("0" = "Died", "1" = "Survived")) + #Relable the 1 and 0's
+  labs(
+    x = "Survival Status",
+    y = "Fare Price"
+  )
+
+
+```
+
