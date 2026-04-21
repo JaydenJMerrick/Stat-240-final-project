@@ -1,5 +1,5 @@
 ---
-title: "Final_Project_Paper"
+title: "STAT240 Project: Titanic fare prices affect of passanger survivabililty"
 output: html_document
 date: "2026-04-14"
 ---
@@ -8,15 +8,16 @@ date: "2026-04-14"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r include= FALSE}
 ## Data Read & Clean
-```{r}
+
 # For the group: My data was put into a separate data folder
 data <- read.csv("../data/titanic.csv")
 
 head(data) # Reads good!
 ```
 
-```{r}
+```{r include= FALSE}
 library(dplyr)
 fare_survivability <- data %>% select("Survived", "Fare") # This keeps only the variables we need
 
@@ -30,9 +31,45 @@ fare_survivability_cleaned <- fare_survivability %>% drop_na(Survived, Fare)
 fare_survivability_cleaned
 ```
 
+
+```{r include= FALSE}
+# Actual T-test (For p-value)
+
+# t-test shows p-value = 2.699e-11
+t.test(Fare ~ Survived, data = fare_survivability_cleaned)
+```
+
+
+1.Jayden Merrick,
+2.Samantha Laderman,
+3.Dongwoon Han,
+4.Gavin Ryan.
+5.Hyewon Aha
+
+
+
+
+### Introduction
+The Titanic and the story of its last fateful night has long fascinated people. We wanted to see if there was a correlation between the fare that people paid and if they survived or not. Thus the question we answered was: Did an individual's paid fare rate impact their chance of survival on the Titanic? 
+
+The voyage of the Titanic saw a wide range of people from different social classes. There were approximately 324 first class passengers on board, 284 second class and 709 third class passengers. Tickets for a first class suite would cost around $133,132 today. Third class would cost around $1071. The Titanic was equipped to hold 3,320 people. However, there were only 2,229 passengers and crew on board its final voyage. 
+
+The Titanic was equipped with only 20 lifeboats that could hold up to 1,178 people (far fewer than the number of people on board). Around 1,516 people perished due to the frigid waters and violence of the boat sinking. Of these 1,516 people, 818 passengers and 698 crew members died. 
+
+Our results show that there is a direct correlation between fare and survivorship. Passengers who paid higher fares had a significantly better chance of surviving the Titanic sinking than those who paid lower fares.
+
+
+### Background
+
+For our project, we decided to utilize the Titanic database published by researcher Xiaming Chen on GitHub to answer conclusively whether or not passenger fare played a role in the odds of surviving the disaster. The dataset can be found on awesome-public-datasets/Datasets/titanic.csv.zip at master · awesomedata/awesome-public-datasets. 
+
+Within the dataset, there are several columns of data describing passenger details. They are Passenger, Survived, Pclass, Name, Sex, Age, Sibsp, Parch, Ticket, Fare, Cabin, and Embarked. The Passenger column represents the number the passenger was assigned for identification in the dataset. Survived is represented in binary terms with a value of zero representing they did not survive and a value of one indicating survival. Pclass has values ranging from 1-3 representing the class level of the passenger with one representing first class, two representing second class, and three representing third class. Name is a string value of each passenger’s name on their respective boarding ticket. Sex is a binary string of either male or female. Sibsp is the count of siblings/spouses onboard and Parch is the count of parents/children onboard. Fare represents the price of each passenger’s ticket. Cabin represents the room number of each passenger. Embarked represents where each passenger got on the ship with C representing Cherbourg, Q representing Queenstown, and S representing Southampton. 
+
+For our purposes, we focused on the Survived and Fare columns to answer whether fare played a significant role in the odds of survival. We used data cleaning methods in R to make every make a table where each row represents a individual, with columns noted how much they paid for their fare and if they survived the crash. We used the ggplot2 library’s boxplot function to make a graph to display the data. Furthermore, we ran a standard t-test in R to get the p-value.
+
+```{r echo = FALSE}
 ## BoxPlot Graph
 
-```{r}
 library(ggplot2)
 
 ggplot(fare_survivability_cleaned, aes(x = factor(Survived), y = Fare), fill = factor(Survived)) +
@@ -40,10 +77,71 @@ ggplot(fare_survivability_cleaned, aes(x = factor(Survived), y = Fare), fill = f
   coord_cartesian(ylim = c(0, 300)) + #needed to zoom in due to outlier
   scale_x_discrete(labels = c("0" = "Died", "1" = "Survived")) + #Relable the 1 and 0's
   labs(
+    title = "Comparing Fare rates of the Dead and Survived Titanic passengers",
     x = "Survival Status",
     y = "Fare Price"
   )
 
 
 ```
+
+Fig 1. Boxplot graph shows two columns representing the binary states of the recorded fate of each person in our data, Died or Survived, against the fare rate paid by each individual. The graph shows a difference between the two columns, where individuals labeled as Survived have an Interquartile Range including higher fare prices.
+
+The boxplot shows that passengers who survived generally paid higher fares than those who died. The median fare and interquartile range for survivors are both noticeably higher, indicating that a larger portion of survivors were in higher fare ranges. Although there is some overlap, the overall distribution is shifted upward for survivors. This visual difference supports our main finding that higher fare-paying passengers were more likely to survive, suggesting that wealth played a significant role in survival on the Titanic. 
+
+### Analysis
+
+#### Hypotheses
+
+	H0 = (mu_1 = mu_0) implies (mu_1 - mu_0 = 0)
+	HA = (mu_1 > mu_0) implies (mu_1 - mu_0 > 0)
+
+The null hypothesis for our study would infer that there is no correlation between the fare price paid and survivability. Our alternative hypothesis would say the opposite, that there is a correlation between fare price and survivability where the higher the fare price increases the chance of survival.
+
+#### Parameters of Interest
+Our parameters of interest is the mean fare rate for individuals who died (mu_0) 
+and mean fare rate of those who survived (mu_1)
+
+#### Type of Inference: 
+We used a standard t-test for an inference of two population proportions.
+
+#### Assumptions
+
+	F0 = {Survived = 0} ~ D0(mu_0, sigma_0)
+	F1 = {Survived = 1} ~ D1(mu_1, sigma_1)
+
+ Normal distribution: Our t-test assumes Normal distribution despite our data a bell curve. Our data skews right due to some outliers. However, this can still be used in the t-test due to the central limit theorem.
+
+ Independence: It is assumed that all fare prices were not based on each other for each of the 891 individuals.
+
+#### Test Statistic
+ 
+We used the t test equation:
+$$t = \frac{\bar{x}_1 - \bar{x}_0}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_0^2}{n_0}}}$$ 
+ 
+The degrees of freedom were calculated by:
+$df = \frac{\left( \frac{s_1^2}{n_1} + \frac{s_0^2}{n_0} \right)^2}{\frac{\left( \frac{s_1^2}{n_1} \right)^2}{n_1 - 1} + \frac{\left( \frac{s_0^2}{n_0} \right)^2}{n_0 - 1}}$.
+
+
+### Results
+P = 0.00000000002699,
+
+Df = 436.7,
+
+T = -6.8391
+
+### Discussion 
+Further Interpretation 
+We reject the null hypothesis as we have concluded that there is enough evidence that passengers who paid higher fares were more likely to survive. P-values are one way to determine whether or not to reject the null hypothesis. A large p-value lends support to a correct null hypothesis. Conversely, a small p-value means that there is a lesser chance that the data supports the null hypothesis. Our p-value of 0.00000000002699 shows that there is very insufficient evidence to support the null hypothesis. Our low p-value suggests that the observed differences in survival rate in regard to fare price is very likely not do to random chance.
+
+Shortcomings of the analysis 
+One shortcoming of our dataset is that it didn’t encompass all passengers onboard the Titanic. There were 2229 passengers and our dataset only includes 891 people. 
+Another is that the normal distribution could be thrown off due to the outlier high fare prices skewing the mean.
+
+Additional Questions/Further Recommendations
+One other question we had about this dataset was about gender and age. We wondered if there was a significantly higher proportion of female as well as child survivors as women and children were prioritized when it came to lifeboats. 
+We recommend expanding the dataset to include all passengers in future analyses. 
+
+
+
 
